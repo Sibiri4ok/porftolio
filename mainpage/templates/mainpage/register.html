@@ -1,0 +1,54 @@
+{% load static %}
+{% load socialaccount %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Регистрация">
+    <title>Регистрация</title>
+    <!-- Bootstrap CSS -->
+    <link href="{% static 'mainpage/css/styles.css' %}" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'about' %}">Назад</a>
+        </div>
+    </nav>
+
+    <!-- Registration Form -->
+    <div class="container mt-5 pt-5">
+        <h2 class="text-center text-uppercase text-secondary">Регистрация</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form method="POST" action="{% url 'register' %}">
+                    {% csrf_token %}
+                    {% for f in form %}
+                    <div class="form-group mb-3">
+                        <label for="{{ f.id_for_label }}" class="form-label">{{ f.label }}</label>
+                        {{ f }}
+                        {% if f.errors %}
+                        <div class="text-danger">
+                            {{ f.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    <!-- <div class="form-group mb-3">
+                        <label for="username">Имя пользователя:</label>
+                        <input type="text" id="username" name="username" class="form-control" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="password1">Пароль:</label>
+                        <input type="password1" id="password1" name="password1" class="form-control" required>
+                    </div> -->
+                    <button type="submit" class="btn btn-primary w-100">Зарегистрироваться</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
